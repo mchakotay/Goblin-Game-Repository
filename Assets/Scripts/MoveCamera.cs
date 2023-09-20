@@ -11,4 +11,5 @@ public class MoveCamera : MonoBehaviour
     {
         transform.position = cameraPosition.position;
     }
+    //this is a test comment for git testing
 }
