@@ -7,6 +7,10 @@ public class PlayerCam : MonoBehaviour
     public float sensX;
     public float sensY;
 
+    public Camera fpCamera;
+    public float pickupDistance = 2f;
+    InteractableObject obj;
+
     public Transform orientation;
 
     float xRotation;
@@ -35,5 +39,17 @@ public class PlayerCam : MonoBehaviour
         //rotate cam and orientation
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+
+        //world position of where mouse cursor is pointing at (where we are lookign towards)
+        Ray ray = fpCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, pickupDistance))
+        {
+            obj = hit.collider.GetComponent<InteractableObject>();
+        }
+        if (Input.GetMouseButton(0) && obj)
+        {
+            Destroy(obj.transform.parent.gameObject);
+        }   
     }
 }
