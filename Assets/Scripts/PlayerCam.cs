@@ -48,14 +48,26 @@ public class PlayerCam : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, pickupDistance))
         {
-            obj = hit.collider.GetComponent<InteractableObject>();
-            if (obj && obj.gameObject.CompareTag("InteractableObject")) {
+            Debug.DrawRay(ray.origin, ray.direction * pickupDistance, Color.red);
+
+            if (hit.collider.tag == "InteractableObject")
+            {
                 interactPrompt.enabled = true;
+
+                if (Input.GetKeyDown("e"))
+                {
+                    //destroy is just an example, we could call a function, might remove later
+                    Destroy(hit.transform.parent.gameObject);
+                }
             }
             else
             {
                 interactPrompt.enabled = false;
             }
+        }
+        else
+        {
+            interactPrompt.enabled = false;
         }
         if (Input.GetKeyDown("e") && obj)
         {
