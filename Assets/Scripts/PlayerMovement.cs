@@ -20,6 +20,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
+    public Transform feet;
+    public float groundDistance = 0.4f;
+   
     bool grounded;
     //initializing variables for rigid body, move speed and jump force
     Rigidbody rb;
@@ -39,7 +42,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         //ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        grounded = Physics.CheckSphere(feet.position, groundDistance, whatIsGround);
+        Debug.Log(grounded);
         
         MyInput();
         SpeedControl();
