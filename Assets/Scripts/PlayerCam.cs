@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerCam : MonoBehaviour
 {
     public float sensX;
     public float sensY;
+    public TextMeshProUGUI interactPrompt;
 
     public Camera fpCamera;
     public float pickupDistance = 2f;
@@ -20,7 +22,8 @@ public class PlayerCam : MonoBehaviour
     {
         //lock the cursor in the middle of the screen and make it invisible
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        Cursor.visible = true;
+        interactPrompt.enabled = false;
     }
 
     // Update is called once per frame
@@ -46,10 +49,18 @@ public class PlayerCam : MonoBehaviour
         if (Physics.Raycast(ray, out hit, pickupDistance))
         {
             obj = hit.collider.GetComponent<InteractableObject>();
+            if (obj && obj.gameObject.CompareTag("InteractableObject")) {
+                interactPrompt.enabled = true;
+            }
+            else
+            {
+                interactPrompt.enabled = false;
+            }
         }
-        if (Input.GetMouseButton(0) && obj)
+        if (Input.GetKeyDown("e") && obj)
         {
             Destroy(obj.transform.parent.gameObject);
+            interactPrompt.enabled = false;
         }   
     }
 }
