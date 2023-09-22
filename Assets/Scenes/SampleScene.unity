@@ -774,6 +774,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -873,6 +874,20 @@ MonoBehaviour:
   fpCamera: {fileID: 963194227}
   pickupDistance: 2
   orientation: {fileID: 2146933249}
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c14965b93b0d97942a8d40cf577682d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactorSource: {fileID: 963194228}
+  interactRange: 5
 --- !u!1001 &1005890383
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1691,6 +1706,7 @@ GameObject:
   - component: {fileID: 1589792084}
   - component: {fileID: 1589792086}
   - component: {fileID: 1589792085}
+  - component: {fileID: 1589792087}
   m_Layer: 0
   m_Name: Pickupbox
   m_TagString: InteractableObject
@@ -1748,6 +1764,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.029048854, y: 0.02040848, z: 0.04941318}
   m_Center: {x: -0.00114142, y: 0.000051721185, z: 0.007944757}
+--- !u!114 &1589792087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589792083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da2163b6997e7f842b32d54a5ffc25d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1651773392
 GameObject:
   m_ObjectHideFlags: 0
