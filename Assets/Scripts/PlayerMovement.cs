@@ -43,7 +43,6 @@ public class PlayerMovement : MonoBehaviour
     {
         //ground check
         grounded = Physics.CheckSphere(feet.position, groundDistance, whatIsGround);
-        Debug.Log(grounded);
         
         MyInput();
         SpeedControl();

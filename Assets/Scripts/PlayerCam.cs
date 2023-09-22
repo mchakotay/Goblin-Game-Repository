@@ -46,19 +46,12 @@ public class PlayerCam : MonoBehaviour
         //world position of where mouse cursor is pointing at (where we are lookign towards)
         Ray ray = fpCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+        //enables and disables interact prompt
         if (Physics.Raycast(ray, out hit, pickupDistance))
         {
-            Debug.DrawRay(ray.origin, ray.direction * pickupDistance, Color.red);
-
             if (hit.collider.tag == "InteractableObject")
             {
                 interactPrompt.enabled = true;
-
-                if (Input.GetKeyDown("e"))
-                {
-                    //destroy is just an example, we could call a function, might remove later
-                    Destroy(hit.transform.parent.gameObject);
-                }
             }
             else
             {
@@ -69,10 +62,5 @@ public class PlayerCam : MonoBehaviour
         {
             interactPrompt.enabled = false;
         }
-        if (Input.GetKeyDown("e") && obj)
-        {
-            Destroy(obj.transform.parent.gameObject);
-            interactPrompt.enabled = false;
-        }   
     }
 }
