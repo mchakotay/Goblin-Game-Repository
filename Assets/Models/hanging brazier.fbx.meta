@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d42fdc84eeeb2db4481050bac1af9322
+guid: 04b103a8da65a5146aa005840f40e27a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -15,7 +15,7 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
-    motionNodeName: Chest Top
+    motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
