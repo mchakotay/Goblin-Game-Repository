@@ -24,6 +24,9 @@ public class Interactor : MonoBehaviour
             Ray r = new Ray(interactorSource.position, interactorSource.forward);
             if (Physics.Raycast(r, out RaycastHit hitInfo, interactRange))
             {
+                Debug.DrawRay(interactorSource.position, interactorSource.forward);
+                Debug.Log("Our ray is hitting something");
+                Debug.Log(hitInfo.collider.gameObject.name);
                 InteractWithObject(hitInfo.collider.gameObject);
             }
         }
@@ -32,6 +35,8 @@ public class Interactor : MonoBehaviour
     {
         if (objectToInteractWith.TryGetComponent(out IInteractable interactableObj))
         {
+            
+            Debug.Log(objectToInteractWith.name);
             interactableObj.Interact();
         }
     }
