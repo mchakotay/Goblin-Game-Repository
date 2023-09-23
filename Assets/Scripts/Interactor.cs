@@ -13,7 +13,7 @@ public class Interactor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -35,7 +35,7 @@ public class Interactor : MonoBehaviour
     {
         if (objectToInteractWith.TryGetComponent(out IInteractable interactableObj))
         {
-            
+
             Debug.Log(objectToInteractWith.name);
             interactableObj.Interact();
         }

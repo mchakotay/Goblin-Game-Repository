@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask whatIsGround;
     public Transform feet;
     public float groundDistance = 0.4f;
-   
+
     bool grounded;
     //initializing variables for rigid body, move speed and jump force
     Rigidbody rb;
@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //ground check
         grounded = Physics.CheckSphere(feet.position, groundDistance, whatIsGround);
-        
+
         MyInput();
         SpeedControl();
         StateHandler();
@@ -92,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         //when to jump
-        if(Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
 
@@ -164,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         //limit velocity if needed
-        if(flatVel.magnitude > movementSpeed)
+        if (flatVel.magnitude > movementSpeed)
         {
             Vector3 limitedVel = flatVel.normalized * movementSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
@@ -177,10 +177,10 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
-    
+
     private void ResetJump()
     {
         readyToJump = true;
     }
-    
+
 }
