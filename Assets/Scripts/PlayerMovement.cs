@@ -52,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PickupObject.totalLoot = 0;
         rb = GetComponent<Rigidbody>();
         readyToJump = true;
 
