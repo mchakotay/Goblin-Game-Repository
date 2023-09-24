@@ -11,5 +11,6 @@ public class ChestOpen : MonoBehaviour, IInteractable
         open = !open;
         chestAnimatorRef = transform.GetComponent<Animator>();
         chestAnimatorRef.SetBool("open", open);
+        transform.parent.GetComponent<BoxCollider>().enabled = !(transform.parent.GetComponent<BoxCollider>().enabled);
     }
 }
