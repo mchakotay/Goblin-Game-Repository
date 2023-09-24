@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] float movementSpeed = 5f;
+    [SerializeField] private float movementSpeed;
+    [SerializeField] public float walkSpeed = 2;
+    [SerializeField] public float sprintspeed = 5;
 
     public float groundDrag;
 
@@ -14,15 +16,22 @@ public class PlayerMovement : MonoBehaviour
     public float airMultiplier;
     bool readyToJump;
 
+    [Header("crouchin")]
+    public float crouchSpeed;
+    public float crouchYScale;
+    private float startYScale;
+
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode sprintKey = KeyCode.LeftShift;
+    public KeyCode crouchKey = KeyCode.LeftControl;
 
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
     public Transform feet;
     public float groundDistance = 0.4f;
-   
+
     bool grounded;
     //initializing variables for rigid body, move speed and jump force
     Rigidbody rb;
@@ -31,11 +40,22 @@ public class PlayerMovement : MonoBehaviour
     float horizontalInput;
     float verticalInput;
 
+    public MovementState state;
+    public enum MovementState
+    {
+        walking,
+        sprinting,
+        crouching,
+        air
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         readyToJump = true;
+
+        startYScale = transform.localScale.y;
     }
 
     // Update is called once per frame
@@ -43,9 +63,10 @@ public class PlayerMovement : MonoBehaviour
     {
         //ground check
         grounded = Physics.CheckSphere(feet.position, groundDistance, whatIsGround);
-        
+
         MyInput();
         SpeedControl();
+        StateHandler();
 
         //handle drag
         if (grounded)
@@ -71,13 +92,52 @@ public class PlayerMovement : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         //when to jump
-        if(Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
 
             Jump();
 
             Invoke(nameof(ResetJump), jumpCooldown);
+        }
+
+        //start crouchin yo ass
+        if (Input.GetKeyDown(crouchKey))
+        {
+            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
+            rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+        }
+
+        //stop crouchin yo ass
+        if (Input.GetKeyUp(crouchKey))
+        {
+            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+        }
+    }
+
+    private void StateHandler()
+    {
+        // Mode - Sneakymode
+        if (Input.GetKey(crouchKey))
+        {
+            state = MovementState.crouching;
+            movementSpeed = crouchSpeed;
+        }
+        if (grounded && Input.GetKey(sprintKey))
+        {
+            state = MovementState.sprinting;
+            movementSpeed = sprintspeed;
+        }
+
+        else if (grounded)
+        {
+            state = MovementState.walking;
+            movementSpeed = walkSpeed;
+
+        }
+        else
+        {
+            state = MovementState.air;
         }
     }
 
@@ -104,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         //limit velocity if needed
-        if(flatVel.magnitude > movementSpeed)
+        if (flatVel.magnitude > movementSpeed)
         {
             Vector3 limitedVel = flatVel.normalized * movementSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
@@ -117,10 +177,10 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
-    
+
     private void ResetJump()
     {
         readyToJump = true;
     }
-    
+
 }

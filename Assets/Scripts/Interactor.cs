@@ -10,10 +10,13 @@ public class Interactor : MonoBehaviour
 {
     public Transform interactorSource;
     public float interactRange;
+    private bool isInteractable = false;
+    private bool open = false;
+    private Animator chestAnimatorRef;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -30,14 +33,30 @@ public class Interactor : MonoBehaviour
                 InteractWithObject(hitInfo.collider.gameObject);
             }
         }
+        if (isInteractable == true)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                open = !open;
+                chestAnimatorRef.SetBool("open", open);
+            }
+        }
     }
     void InteractWithObject(GameObject objectToInteractWith)
     {
         if (objectToInteractWith.TryGetComponent(out IInteractable interactableObj))
         {
-            
+
             Debug.Log(objectToInteractWith.name);
             interactableObj.Interact();
+        }
+
+        if (objectToInteractWith.CompareTag("Chest"))
+        {
+            isInteractable = true;
+            Transform chestRef = objectToInteractWith.transform.parent.Find("ChestA");
+            Animator chestAnimator = chestRef.GetComponent<Animator>();
+            chestAnimatorRef = chestAnimator;
         }
     }
 }
