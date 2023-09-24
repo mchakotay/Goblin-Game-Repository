@@ -5899,7 +5899,7 @@ GameObject:
   - component: {fileID: 494057106}
   m_Layer: 0
   m_Name: ChestA
-  m_TagString: InteractableObject
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7649,7 +7649,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensX: 800
   sensY: 800
-  interactPrompt: {fileID: 0}
+  interactPrompt: {fileID: 1233475173}
   fpCamera: {fileID: 963194227}
   pickupDistance: 2
   orientation: {fileID: 2146933249}
@@ -31019,11 +31019,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5820736916984120442}
   - component: {fileID: 6596851850507919043}
-  - component: {fileID: 6596851850507919042}
   - component: {fileID: 6596851850507919041}
+  - component: {fileID: 6596851850507919044}
   m_Layer: 0
   m_Name: ChestA
-  m_TagString: Chest
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31049,20 +31049,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6596851850507919042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6596851850507919040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c14965b93b0d97942a8d40cf577682d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactorSource: {fileID: 0}
-  interactRange: 0
 --- !u!65 &6596851850507919043
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -31084,6 +31070,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.3385525, y: 2.4459863, z: 0.8164787}
   m_Center: {x: -0.17581463, y: 1.1402872, z: 1.6604252}
+--- !u!114 &6596851850507919044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6596851850507919040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 048eb8c93c820d14d9ed787a081d7188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6696502289146908106
 GameObject:
   m_ObjectHideFlags: 0

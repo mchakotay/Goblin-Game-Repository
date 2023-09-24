@@ -27,18 +27,10 @@ public class Interactor : MonoBehaviour
             Ray r = new Ray(interactorSource.position, interactorSource.forward);
             if (Physics.Raycast(r, out RaycastHit hitInfo, interactRange))
             {
-                Debug.DrawRay(interactorSource.position, interactorSource.forward);
-                Debug.Log("Our ray is hitting something");
-                Debug.Log(hitInfo.collider.gameObject.name);
+                //Debug.DrawRay(interactorSource.position, interactorSource.forward);
+                //Debug.Log("Our ray is hitting something");
+                //Debug.Log(hitInfo.collider.gameObject.name);
                 InteractWithObject(hitInfo.collider.gameObject);
-            }
-        }
-        if (isInteractable == true)
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                open = !open;
-                chestAnimatorRef.SetBool("open", open);
             }
         }
     }
@@ -47,16 +39,8 @@ public class Interactor : MonoBehaviour
         if (objectToInteractWith.TryGetComponent(out IInteractable interactableObj))
         {
 
-            Debug.Log(objectToInteractWith.name);
+            //Debug.Log(objectToInteractWith.name);
             interactableObj.Interact();
-        }
-
-        if (objectToInteractWith.CompareTag("Chest"))
-        {
-            isInteractable = true;
-            Transform chestRef = objectToInteractWith.transform.parent.Find("ChestA");
-            Animator chestAnimator = chestRef.GetComponent<Animator>();
-            chestAnimatorRef = chestAnimator;
         }
     }
 }
