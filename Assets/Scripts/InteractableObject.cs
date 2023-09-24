@@ -8,5 +8,5 @@ public enum EPickupType
 public class InteractableObject : MonoBehaviour
 {
     public EPickupType pickupType = EPickupType.EPT_Money;
-    public float amount = 00;
+    [SerializeField] public int  amount = 00;
 }
