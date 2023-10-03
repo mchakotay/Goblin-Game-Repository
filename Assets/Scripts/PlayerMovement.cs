@@ -40,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
     float horizontalInput;
     float verticalInput;
 
+    private Animator animator;
     public MovementState state;
     public enum MovementState
     {
@@ -57,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
 
         startYScale = transform.localScale.y;
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -77,6 +79,25 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb.drag = 0;
+        }
+
+        //movement animations between walking/idle and running
+        if (moveDirection == Vector3.zero)
+
+        {
+            //idle
+            animator.SetFloat("Speed", 0f);
+        }
+        if (state == MovementState.sprinting)
+        {
+            //running
+            animator.SetFloat("Speed", .5f);
+        }
+
+        if (state == MovementState.walking)
+        {
+            //walking
+            animator.SetFloat("Speed", 0f);
         }
     }
 
