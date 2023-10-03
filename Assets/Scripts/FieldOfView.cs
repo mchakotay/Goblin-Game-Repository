@@ -48,6 +48,7 @@ public class FieldOfView : MonoBehaviour
                 if(!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask))
                 {
                     canSeePlayer = true;
+                    transform.LookAt(playerRef.transform);
                 }
                 else
                 {
