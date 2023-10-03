@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.AI;
 public class FieldOfView : MonoBehaviour
 {
     public float radius;
@@ -15,8 +15,10 @@ public class FieldOfView : MonoBehaviour
 
     public bool canSeePlayer;
     // Start is called before the first frame update
+    private NavMeshAgent navMeshAgent;
     void Start()
     {
+        navMeshAgent = GetComponent<NavMeshAgent>();
         playerRef = GameObject.FindGameObjectWithTag("Player");
         StartCoroutine(FOVRoutine());
     }
@@ -49,6 +51,7 @@ public class FieldOfView : MonoBehaviour
                 {
                     canSeePlayer = true;
                     transform.LookAt(playerRef.transform);
+                    navMeshAgent.destination = playerRef.transform.position;
                 }
                 else
                 {
