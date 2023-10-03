@@ -28,11 +28,35 @@ public class PlayerMovement : MonoBehaviour
     float horizontalInput;
     float verticalInput;
 
+<<<<<<< Updated upstream
     // Start is called before the first frame update
+=======
+    public MovementState state;
+    public enum MovementState
+    {
+        walking,
+        sprinting,
+        crouching,
+        air
+    }
+
+    //animation
+    private Animator animator;
+
+    // Start is called before the first frame update 
+>>>>>>> Stashed changes
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         readyToJump = true;
+<<<<<<< Updated upstream
+=======
+
+        startYScale = transform.localScale.y;
+
+        //getting animator
+        animator = GetComponentInChildren<Animator>();
+>>>>>>> Stashed changes
     }
 
     // Update is called once per frame
@@ -52,6 +76,23 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb.drag = 0;
+        }
+
+        //movement animations between walking/idle and running
+        if (moveDirection == Vector3.zero)
+        { 
+            //idle
+            animator.SetFloat("Speed", 0f);
+        }
+        if (state == MovementState.sprinting)
+        {
+            //running
+            animator.SetFloat("Speed", .5f);
+        }
+        if (state == MovementState.walking)      
+        {
+            //walking
+            animator.SetFloat("Speed", 0f);
         }
     }
 
