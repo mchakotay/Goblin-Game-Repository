@@ -29,8 +29,13 @@ public class PlayerMovement : MonoBehaviour
     float verticalInput;
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     // Start is called before the first frame update
 =======
+=======
+    private Animator animator;
+
+>>>>>>> Stashed changes
     public MovementState state;
     public enum MovementState
     {
@@ -56,6 +61,9 @@ public class PlayerMovement : MonoBehaviour
 
         //getting animator
         animator = GetComponentInChildren<Animator>();
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     }
 
@@ -80,7 +88,11 @@ public class PlayerMovement : MonoBehaviour
 
         //movement animations between walking/idle and running
         if (moveDirection == Vector3.zero)
+<<<<<<< Updated upstream
         { 
+=======
+        {
+>>>>>>> Stashed changes
             //idle
             animator.SetFloat("Speed", 0f);
         }
@@ -89,12 +101,17 @@ public class PlayerMovement : MonoBehaviour
             //running
             animator.SetFloat("Speed", .5f);
         }
+<<<<<<< Updated upstream
         if (state == MovementState.walking)      
+=======
+        if (state == MovementState.walking)
+>>>>>>> Stashed changes
         {
             //walking
             animator.SetFloat("Speed", 0f);
         }
     }
+
 
     private void FixedUpdate()
     {

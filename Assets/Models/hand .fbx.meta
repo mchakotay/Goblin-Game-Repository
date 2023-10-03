@@ -24,7 +24,11 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
+<<<<<<< Updated upstream
     animationCompression: 3
+=======
+    animationCompression: 1
+>>>>>>> Stashed changes
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -62,11 +66,19 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
+<<<<<<< Updated upstream
       name: Armature|running (1)
       takeName: Armature|running
       internalID: 5269128506079621549
       firstFrame: 0
       lastFrame: 17
+=======
+      name: Armature|running.002
+      takeName: Armature|running.002
+      internalID: -213820653132528065
+      firstFrame: 0
+      lastFrame: 19
+>>>>>>> Stashed changes
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -92,8 +104,13 @@ ModelImporter:
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: Armature|walking
+<<<<<<< Updated upstream
       takeName: Armature|running.002
       internalID: -213820653132528065
+=======
+      takeName: Armature|walking
+      internalID: 7168293901883076996
+>>>>>>> Stashed changes
       firstFrame: 0
       lastFrame: 19
       wrapMode: 0
@@ -119,6 +136,38 @@ ModelImporter:
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
+<<<<<<< Updated upstream
+=======
+    - serializedVersion: 16
+      name: Armature|walking.001
+      takeName: Armature|walking.001
+      internalID: -7089610740750888211
+      firstFrame: 0
+      lastFrame: 19
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+>>>>>>> Stashed changes
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -169,6 +218,7 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
+<<<<<<< Updated upstream
     skeleton:
     - name: hand (Clone)
       parentName: 
@@ -265,6 +315,9 @@ ModelImporter:
       position: {x: 0.017922498, y: -0.0024588283, z: 0.056868367}
       rotation: {x: -0.70710665, y: -0.0000000041159023, z: -0.0000000041159014, w: 0.7071069}
       scale: {x: 1, y: 0.99999994, z: 1}
+=======
+    skeleton: []
+>>>>>>> Stashed changes
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -273,9 +326,15 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
+<<<<<<< Updated upstream
     rootMotionBoneName: Armature
     hasTranslationDoF: 0
     hasExtraRoot: 1
+=======
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+>>>>>>> Stashed changes
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1

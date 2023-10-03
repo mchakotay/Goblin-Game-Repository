@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream:Assets/Materials/hands.controller.meta
 guid: eb3f321534037ad40b50ce352c47ef47
+=======
+guid: 4c6034d12231f2e4886f1af2ac8dd648
+>>>>>>> Stashed changes:Assets/Animator Controllers/hands.controller.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 9100000
