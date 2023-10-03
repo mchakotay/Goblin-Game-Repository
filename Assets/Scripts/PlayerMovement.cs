@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] float movementSpeed = 5f;
+    [SerializeField] private float movementSpeed;
+    [SerializeField] public float walkSpeed = 2;
+    [SerializeField] public float sprintspeed = 5;
 
     public float groundDrag;
 
@@ -14,12 +16,22 @@ public class PlayerMovement : MonoBehaviour
     public float airMultiplier;
     bool readyToJump;
 
+    [Header("crouchin")]
+    public float crouchSpeed;
+    public float crouchYScale;
+    private float startYScale;
+
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode sprintKey = KeyCode.LeftShift;
+    public KeyCode crouchKey = KeyCode.LeftControl;
 
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
+    public Transform feet;
+    public float groundDistance = 0.4f;
+
     bool grounded;
     //initializing variables for rigid body, move speed and jump force
     Rigidbody rb;
@@ -28,14 +40,6 @@ public class PlayerMovement : MonoBehaviour
     float horizontalInput;
     float verticalInput;
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    // Start is called before the first frame update
-=======
-=======
-    private Animator animator;
-
->>>>>>> Stashed changes
     public MovementState state;
     public enum MovementState
     {
@@ -45,36 +49,25 @@ public class PlayerMovement : MonoBehaviour
         air
     }
 
-    //animation
-    private Animator animator;
-
-    // Start is called before the first frame update 
->>>>>>> Stashed changes
+    // Start is called before the first frame update
     void Start()
     {
+        PickupObject.totalLoot = 0;
         rb = GetComponent<Rigidbody>();
         readyToJump = true;
-<<<<<<< Updated upstream
-=======
 
         startYScale = transform.localScale.y;
-
-        //getting animator
-        animator = GetComponentInChildren<Animator>();
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     }
 
     // Update is called once per frame
     void Update()
     {
         //ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
-        
+        grounded = Physics.CheckSphere(feet.position, groundDistance, whatIsGround);
+
         MyInput();
         SpeedControl();
+        StateHandler();
 
         //handle drag
         if (grounded)
@@ -85,33 +78,7 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.drag = 0;
         }
-
-        //movement animations between walking/idle and running
-        if (moveDirection == Vector3.zero)
-<<<<<<< Updated upstream
-        { 
-=======
-        {
->>>>>>> Stashed changes
-            //idle
-            animator.SetFloat("Speed", 0f);
-        }
-        if (state == MovementState.sprinting)
-        {
-            //running
-            animator.SetFloat("Speed", .5f);
-        }
-<<<<<<< Updated upstream
-        if (state == MovementState.walking)      
-=======
-        if (state == MovementState.walking)
->>>>>>> Stashed changes
-        {
-            //walking
-            animator.SetFloat("Speed", 0f);
-        }
     }
-
 
     private void FixedUpdate()
     {
@@ -126,13 +93,52 @@ public class PlayerMovement : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         //when to jump
-        if(Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
 
             Jump();
 
             Invoke(nameof(ResetJump), jumpCooldown);
+        }
+
+        //start crouchin yo ass
+        if (Input.GetKeyDown(crouchKey))
+        {
+            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
+            rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+        }
+
+        //stop crouchin yo ass
+        if (Input.GetKeyUp(crouchKey))
+        {
+            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+        }
+    }
+
+    private void StateHandler()
+    {
+        // Mode - Sneakymode
+        if (Input.GetKey(crouchKey))
+        {
+            state = MovementState.crouching;
+            movementSpeed = crouchSpeed;
+        }
+        if (grounded && Input.GetKey(sprintKey))
+        {
+            state = MovementState.sprinting;
+            movementSpeed = sprintspeed;
+        }
+
+        else if (grounded)
+        {
+            state = MovementState.walking;
+            movementSpeed = walkSpeed;
+
+        }
+        else
+        {
+            state = MovementState.air;
         }
     }
 
@@ -159,7 +165,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         //limit velocity if needed
-        if(flatVel.magnitude > movementSpeed)
+        if (flatVel.magnitude > movementSpeed)
         {
             Vector3 limitedVel = flatVel.normalized * movementSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
@@ -172,10 +178,10 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
-    
+
     private void ResetJump()
     {
         readyToJump = true;
     }
-    
+
 }
