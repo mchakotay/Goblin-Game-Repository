@@ -6,6 +6,7 @@ TagManager:
   tags:
   - InteractableObject
   - Chest
+  - Enemy
   layers:
   - Default
   - TransparentFX
