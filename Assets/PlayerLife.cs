@@ -15,6 +15,8 @@ public class PlayerLife : MonoBehaviour
     void Die()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
         //ReloadLevel();
     }
     void ReloadLevel()
