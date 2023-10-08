@@ -25,14 +25,17 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode crouchKey = KeyCode.LeftControl;
+    public KeyCode interact = KeyCode.E;
 
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
     public Transform feet;
-    public float groundDistance = 0.4f;
+    public float groundDistance;
 
-    bool grounded;
+    bool grounded = false;
+
+ 
     //initializing variables for rigid body, move speed and jump force
     Rigidbody rb;
     public Transform orientation;
@@ -50,6 +53,69 @@ public class PlayerMovement : MonoBehaviour
         air
     }
 
+    //grounded collision
+
+    //calculating angle of player to ground
+    float RoundedNormalVectorAngle(Vector3 normal, uint decimalAccuracy)
+    {
+        int accuracy = (int)Mathf.Pow(10, decimalAccuracy);
+        return Mathf.RoundToInt(Vector3.Angle(normal, Vector3.up) * accuracy) / accuracy;
+
+    }
+
+    //to call index from unity must be 2^(index number)... no clue why
+    bool CompareLayerIndex(Transform transform, LayerMask layer)
+    {
+        return Mathf.Pow(2, transform.gameObject.layer) == layer;
+    }
+
+    //seeing if your ass is still on the ground
+    bool isStillTouchingGround(List<ContactPoint> contactPoints, int numberOfContacts)
+    {
+        for (int i = 0; i < numberOfContacts; i++)
+        {
+            if (RoundedNormalVectorAngle(contactPoints[i].normal, 3) <= 45)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    List<Collider> groundTouchPoints = new List<Collider>();
+
+void OnCollisionStay(Collision collision)
+    {   
+        List<ContactPoint> contactPoints = new List<ContactPoint>();
+        int numberOfContacts = collision.GetContacts(contactPoints);
+
+        for (int i = 0; i < numberOfContacts; i++)
+        {
+            Collider collider = collision.collider;
+            if (RoundedNormalVectorAngle(contactPoints[i].normal, 3) <= 45 && CompareLayerIndex(collision.transform, whatIsGround) && !groundTouchPoints.Contains(collider))
+
+            {
+                groundTouchPoints.Add(collider);
+            }
+
+            else if (!isStillTouchingGround(contactPoints, numberOfContacts) && groundTouchPoints.Contains(collider))
+            {
+                groundTouchPoints.Remove(collider);
+            }
+            }
+        }
+void OnCollisionExit(Collision collision)
+    {   
+            Collider collider = collision.collider;
+
+        if (groundTouchPoints.Contains(collider)) 
+        {
+            groundTouchPoints.Remove(collider);
+        }
+    }
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         //ground check
-        grounded = Physics.CheckSphere(feet.position, groundDistance, whatIsGround);
+        grounded = groundTouchPoints.Count > 0;
 
         MyInput();
         SpeedControl();
@@ -79,6 +145,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb.drag = 0;
+  
         }
 
         //movement animations between walking/idle and running
@@ -98,6 +165,18 @@ public class PlayerMovement : MonoBehaviour
         {
             //walking
             animator.SetFloat("Speed", 0f);
+        }
+
+        //swiper be swipin'
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            animator.SetBool("Swipe", true);
+        }
+
+        //swiper no swiping
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            animator.SetBool("Swipe", false);
         }
     }
 
